@@ -104,6 +104,12 @@ class PurchaseOrderService
     {
         $result = [];
         foreach($groupedPurchaseOrders as $productTypeId => $purchaseOrders) {
+            if (! array_key_exists($productTypeId, self::PRODUCT_CALCULATE_TOTAL_METHODS)) {
+                throw new \Exception(
+                    'Product type ' . $productTypeId . ' and its calculate total method mapping doesn\'t exist.'
+                );
+            }
+
             $calculateMethod = new (self::PRODUCT_CALCULATE_TOTAL_METHODS[$productTypeId])($purchaseOrders);
 
             $total = $calculateMethod->getTotal();
