@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'cartoncloud' => [
+        'api' => [
+            'username' => env('CARTON_CLOUD_API_USERNAME'),
+            'password' => env('CARTON_CLOUD_API_PASSWORD')
+        ]
+    ]
 ];

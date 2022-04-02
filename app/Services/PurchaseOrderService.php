@@ -74,7 +74,10 @@ class PurchaseOrderService
             foreach ($purchaseOrderIds as $id) {
                 $apiUrl = $this->getApiUrl('PurchaseOrders/' . $id);
 
-                $apiPool[] = $pool->withBasicAuth('interview-test@cartoncloud.com.au', 'test123456')->get($apiUrl);
+                $apiPool[] = $pool->withBasicAuth(
+                    config('services.cartoncloud.api.username'),
+                    config('services.cartoncloud.api.password')
+                )->get($apiUrl);
             }
 
             return $apiPool;
