@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PurchaseOrderTotalsRequest;
 use App\Services\PurchaseOrderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PurchaseOrderController extends Controller
 {
@@ -14,7 +16,7 @@ class PurchaseOrderController extends Controller
      * @param  Request $request
      * @return JsonResponse response
      */
-    public function purchaseOrderTotals(Request $request) : JsonResponse
+    public function purchaseOrderTotals(PurchaseOrderTotalsRequest $request) : JsonResponse
     {
         $purchaseOrderIds = $request->purchase_order_ids;
 
