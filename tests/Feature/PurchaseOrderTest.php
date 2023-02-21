@@ -108,8 +108,10 @@ class PurchaseOrderTest extends TestCase
                 [
                     'unit_quantity_initial' => '8.000',
                     'product_type_id' => '2',
-                    'volume' => '0.500',
-                    'weight' => '1.500',
+                    'Product' => [
+                        'volume' => '0.500',
+                        'weight' => '1.500',
+                    ]
                 ]
             ]
         ];

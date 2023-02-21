@@ -23,7 +23,7 @@ class CalculateTotalByVolume implements ICalculateTotal
     {
         $total = 0;
         foreach ($this->purchaseOrders as $po) {
-            $total += $po['unit_quantity_initial'] * $po['volume'];
+            $total += $po['unit_quantity_initial'] * $po['Product']['volume'];
         }
 
         // use number_format to force integer to have 1 decimal

@@ -46,12 +46,7 @@ class PurchaseOrderService implements IPurchaseOrderService
             $products = $res->json('data.PurchaseOrderProduct');
 
             foreach ($products as $product) {
-                $groupedPurchaseOrders[$product['product_type_id']][] = [
-                    'product_type_id' => $product['product_type_id'],
-                    'unit_quantity_initial' => $product['unit_quantity_initial'],
-                    'weight' => $product['Product']['weight'],
-                    'volume' => $product['Product']['volume'],
-                ];
+                $groupedPurchaseOrders[$product['product_type_id']][] = $product;
             }
         }
 

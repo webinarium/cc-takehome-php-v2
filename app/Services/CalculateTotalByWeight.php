@@ -22,7 +22,7 @@ class CalculateTotalByWeight implements ICalculateTotal
     {
         $total = 0;
         foreach ($this->purchaseOrders as $po) {
-            $total += $po['unit_quantity_initial'] * $po['weight'];
+            $total += $po['unit_quantity_initial'] * $po['Product']['weight'];
         }
 
         // use number_format to force integer to have 1 decimal

@@ -14,18 +14,24 @@ class CalculateTotalTest extends TestCase
         $this->purchaseOrders = [
             [
                 'unit_quantity_initial' => '8.000',
-                'volume' => '0.500',
-                'weight' => '1.500',
+                'Product' => [
+                    'volume' => '0.500',
+                    'weight' => '1.500',
+                ]
             ],
             [
                 'unit_quantity_initial' => '12.000',
-                'volume' => '1.400',
-                'weight' => '1.900',
+                'Product' => [
+                    'volume' => '1.400',
+                    'weight' => '1.900',
+                ]
             ],
             [
                 'unit_quantity_initial' => '9.000',
-                'volume' => '0.525',
-                'weight' => '1.612',
+                'Product' => [
+                    'volume' => '0.525',
+                    'weight' => '1.612',
+                ]
             ]
         ];
     }
