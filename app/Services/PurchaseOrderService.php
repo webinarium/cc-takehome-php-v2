@@ -35,7 +35,7 @@ class PurchaseOrderService implements IPurchaseOrderService
      * @param  array $responses
      * @return array
      */
-    public function getGroupedPurchaseOrdersFromResponses(array $responses): array
+    protected function getGroupedPurchaseOrdersFromResponses(array $responses): array
     {
         $groupedPurchaseOrders = [];
         foreach ($responses as $res) {

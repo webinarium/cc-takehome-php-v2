@@ -7,10 +7,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
+use Tests\ReflectionTrait;
 use Tests\TestCase;
 
 class PurchaseOrderTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * Test api auth
      *
@@ -91,7 +94,7 @@ class PurchaseOrderTest extends TestCase
         $responses[] = Http::get('https://api.cartoncloud.com.au/CartonCloud_Demo/2');
 
         $service = new PurchaseOrderService;
-        $orders = $service->getGroupedPurchaseOrdersFromResponses($responses);
+        $orders = $this->callMethod($service, 'getGroupedPurchaseOrdersFromResponses', [$responses]);
 
         $this->assertCount(3, $orders);
         $this->assertArrayHasKey(3, $orders);
