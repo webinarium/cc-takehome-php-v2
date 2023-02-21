@@ -102,13 +102,13 @@ class PurchaseOrderService implements IPurchaseOrderService
                 );
             }
 
-            $calculateMethod = new (self::PRODUCT_CALCULATE_TOTAL_METHODS[$productTypeId])($purchaseOrders);
+            $calculateMethod = new (self::PRODUCT_CALCULATE_TOTAL_METHODS[$productTypeId]);
 
-            $total = $calculateMethod->getTotal();
+            $total = array_sum(array_map(fn ($product): float => $calculateMethod->getTotal($product), $purchaseOrders));
 
             $result[] = [
                 'product_type_id' => $productTypeId,
-                'total' => $total
+                'total' => number_format(round($total, 1), 1)
             ];
         }
 

@@ -4,30 +4,12 @@ namespace App\Services;
 
 class CalculateTotalByVolume implements ICalculateTotal
 {
-
     /**
-     * constructor
-     *
-     * @param  array $purchaseOrders
+     * @inheritDoc
      */
-    public function __construct(array $purchaseOrders) {
-        $this->purchaseOrders = $purchaseOrders;
-    }
-
-    /**
-     * calculate total
-     *
-     * @return string
-     */
-    public function getTotal(): string
+    public function getTotal(array $product): float
     {
-        $total = 0;
-        foreach ($this->purchaseOrders as $po) {
-            $total += $po['unit_quantity_initial'] * $po['Product']['volume'];
-        }
-
-        // use number_format to force integer to have 1 decimal
-        return number_format(round($total, 1), 1);
+        return $product['unit_quantity_initial'] * $product['Product']['volume'];
     }
 }
 

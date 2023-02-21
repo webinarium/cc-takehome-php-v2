@@ -43,10 +43,10 @@ class CalculateTotalTest extends TestCase
      */
     public function test_calculate_total_by_weight()
     {
-        $byWeight = new CalculateTotalByWeight($this->purchaseOrders);
-        $total = $byWeight->getTotal();
+        $byWeight = new CalculateTotalByWeight();
+        $total = array_sum(array_map(fn ($po) => $byWeight->getTotal($po), $this->purchaseOrders));
 
-        $this->assertEquals(49.3, $total);
+        $this->assertEquals(49.308, $total);
     }
 
     /**
@@ -56,9 +56,9 @@ class CalculateTotalTest extends TestCase
      */
     public function test_calculate_total_by_volume()
     {
-        $byVolume = new CalculateTotalByVolume($this->purchaseOrders);
-        $total = $byVolume->getTotal();
+        $byVolume = new CalculateTotalByVolume();
+        $total = array_sum(array_map(fn ($po) => $byVolume->getTotal($po), $this->purchaseOrders));
 
-        $this->assertEquals(25.5, $total);
+        $this->assertEquals(25.525, $total);
     }
 }
