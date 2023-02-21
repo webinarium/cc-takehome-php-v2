@@ -8,15 +8,8 @@ use Illuminate\Support\Facades\Http;
 
 class PurchaseOrderService implements IPurchaseOrderService
 {
-    /**
-     * Product type id and calculate total method mapping
-     * eg. product_type_id => method
-     */
-    const PRODUCT_CALCULATE_TOTAL_METHODS = [
-        1 => CalculateTotalByWeight::class,
-        2 => CalculateTotalByVolume::class,
-        3 => CalculateTotalByWeight::class,
-    ];
+    public function __construct(protected array $calculators) {
+    }
 
     /**
      * @inheritDoc
@@ -96,13 +89,13 @@ class PurchaseOrderService implements IPurchaseOrderService
     {
         $result = [];
         foreach($groupedPurchaseOrders as $productTypeId => $purchaseOrders) {
-            if (! array_key_exists($productTypeId, self::PRODUCT_CALCULATE_TOTAL_METHODS)) {
+            $calculateMethod = $this->findCalculateMethod($productTypeId);
+
+            if (!$calculateMethod) {
                 throw new \Exception(
                     'Product type ' . $productTypeId . ' and its calculate total method mapping doesn\'t exist.'
                 );
             }
-
-            $calculateMethod = new (self::PRODUCT_CALCULATE_TOTAL_METHODS[$productTypeId]);
 
             $total = array_sum(array_map(fn ($product): float => $calculateMethod->getTotal($product), $purchaseOrders));
 
@@ -113,6 +106,22 @@ class PurchaseOrderService implements IPurchaseOrderService
         }
 
         return $result;
+    }
+
+    /**
+     * Finds corresponding calculator for specified product type (FALSE if nothing was found)
+     *
+     * @param int $productTypeId
+     * @return bool|ICalculateTotal
+     */
+    protected function findCalculateMethod(int $productTypeId): bool|ICalculateTotal
+    {
+        $supportedMethods = array_filter(
+            $this->calculators,
+            fn (ICalculateTotal $calculator): bool => $calculator->supports($productTypeId)
+        );
+
+        return reset($supportedMethods);
     }
 }
 

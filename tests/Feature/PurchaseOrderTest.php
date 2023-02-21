@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Services\CalculateTotalByVolume;
+use App\Services\CalculateTotalByWeight;
 use App\Services\PurchaseOrderService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -93,7 +95,10 @@ class PurchaseOrderTest extends TestCase
         $responses[] = Http::get('https://api.cartoncloud.com.au/CartonCloud_Demo/1');
         $responses[] = Http::get('https://api.cartoncloud.com.au/CartonCloud_Demo/2');
 
-        $service = new PurchaseOrderService;
+        $service = new PurchaseOrderService([
+            new CalculateTotalByWeight(),
+            new CalculateTotalByVolume()
+        ]);
         $orders = $this->callMethod($service, 'getGroupedPurchaseOrdersFromResponses', [$responses]);
 
         $this->assertCount(3, $orders);
@@ -115,7 +120,10 @@ class PurchaseOrderTest extends TestCase
                 ]
             ]
         ];
-        $service = new PurchaseOrderService;
+        $service = new PurchaseOrderService([
+            new CalculateTotalByWeight(),
+            new CalculateTotalByVolume()
+        ]);
         $totals = $service->calculatePurchaseOrderTotals($groupedPurchaseOrders);
 
         $this->assertCount(1, $totals);

@@ -11,5 +11,13 @@ class CalculateTotalByVolume implements ICalculateTotal
     {
         return $product['unit_quantity_initial'] * $product['Product']['volume'];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function supports(int $productTypeId): bool
+    {
+        return $productTypeId === 2;
+    }
 }
 
