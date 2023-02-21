@@ -6,7 +6,7 @@ use App\Services\CalculateTotalByWeight;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
 
-class PurchaseOrderService
+class PurchaseOrderService implements IPurchaseOrderService
 {
     /**
      * Product type id and calculate total method mapping
@@ -19,10 +19,7 @@ class PurchaseOrderService
     ];
 
     /**
-     * Get grouped purchase orders by product type id
-     *
-     * @param  array $purchaseOrderIds
-     * @return array
+     * @inheritDoc
      */
     public function getGroupedPurchaseOrders(array $purchaseOrderIds): array
     {
@@ -98,10 +95,7 @@ class PurchaseOrderService
     }
 
     /**
-     * Calculate Purchase Order Totals
-     *
-     * @param  array $groupedPurchaseOrders
-     * @return array
+     * @inheritDoc
      */
     public function calculatePurchaseOrderTotals(array $groupedPurchaseOrders): array
     {
