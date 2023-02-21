@@ -8,7 +8,6 @@ class CalculateTotalByWeight implements ICalculateTotal
      * constructor
      *
      * @param  array $purchaseOrders
-     * @return void
      */
     public function __construct(array $purchaseOrders) {
         $this->purchaseOrders = $purchaseOrders;

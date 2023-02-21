@@ -24,7 +24,7 @@ class PurchaseOrderService
      * @param  array $purchaseOrderIds
      * @return array
      */
-    public function getGroupedPurchaseOrders($purchaseOrderIds)
+    public function getGroupedPurchaseOrders(array $purchaseOrderIds): array
     {
         $responses = $this->getPurchaseOrdersFromApi($purchaseOrderIds);
         $grouped = $this->getGroupedPurchaseOrdersFromResponses($responses);
@@ -67,7 +67,7 @@ class PurchaseOrderService
      * @param  array $purchaseOrderIds
      * @return array
      */
-    protected function getPurchaseOrdersFromApi(array $purchaseOrderIds)
+    protected function getPurchaseOrdersFromApi(array $purchaseOrderIds): array
     {
         $responses = Http::pool(function (Pool $pool) use ($purchaseOrderIds) {
             $apiPool = [];
@@ -90,9 +90,9 @@ class PurchaseOrderService
      * Get API url
      *
      * @param  string $path
-     * @return void
+     * @return string
      */
-    protected function getApiUrl(string $path)
+    protected function getApiUrl(string $path): string
     {
         return 'https://api.cartoncloud.com.au/CartonCloud_Demo/'. $path . '?version=5&associated=true';
     }
@@ -103,7 +103,7 @@ class PurchaseOrderService
      * @param  array $groupedPurchaseOrders
      * @return array
      */
-    public function calculatePurchaseOrderTotals($groupedPurchaseOrders)
+    public function calculatePurchaseOrderTotals(array $groupedPurchaseOrders): array
     {
         $result = [];
         foreach($groupedPurchaseOrders as $productTypeId => $purchaseOrders) {

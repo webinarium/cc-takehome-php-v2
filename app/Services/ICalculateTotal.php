@@ -3,5 +3,5 @@
 namespace App\Services;
 
 interface ICalculateTotal {
-    public function getTotal();
+    public function getTotal(): string;
 }
